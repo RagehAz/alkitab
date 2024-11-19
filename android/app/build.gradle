@@ -1,0 +1,88 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    // FOR FIREBASE
+    id "com.google.gms.google-services"
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    namespace 'net.bldrs.alkitab'
+    compileSdkVersion 34
+    ndkVersion "25.1.8937393"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        // for flutter_local_notifications
+        coreLibraryDesugaringEnabled true
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    defaultConfig {
+        applicationId = "net.bldrs.alkitab"
+        minSdk = 24
+        targetSdk = 34
+        // BLDRS_APP_VERSION
+        versionCode = 5051
+        // BLDRS_APP_VERSION
+        versionName = "5.5.0"
+    }
+
+//    signingConfigs {
+//        release {
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+//            storePassword keystoreProperties['storePassword']
+//        }
+//        debug {
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+//            storePassword keystoreProperties['storePassword']
+//        }
+//    }
+    buildTypes {
+//        release {
+//            signingConfig signingConfigs.release
+//        }
+//        debug {
+//            signingConfig signingConfigs.debug
+//        }
+
+        release {
+            signingConfig = signingConfigs.debug
+        }
+
+    }
+
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    // desugar for flutter_local_notifications
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+    // multidex
+    implementation 'androidx.multidex:multidex:2.0.1'
+    // FOR FIREBASE
+    implementation platform('com.google.firebase:firebase-bom:33.6.0')
+//    // google auth
+//    implementation 'com.google.android.gms:play-services-auth:20.0.0'
+    // facebook auth
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+}
+
+//apply plugin: 'com.google.gms.google-services'

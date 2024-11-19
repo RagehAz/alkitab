@@ -1,0 +1,74 @@
+flu# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Android related
+**/android/key.properties
+**/android/app/key.jks
+**/.gradle
+
+# Web related
+/node_modules
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+node_modules/
+
+# BUILD RELATED
+/ios/build/
+/Flutter
+
+
+# CLOUD FUNCTIONS
+/functions/credentials.json
+
+# SECRET KEYS TO BE MANUALLY MOVED
+#lib/bldrs_keys.dart
+#lib/firebase_options.dart
+
+#ios/Runner/GoogleService-Info.plist
+#android/app/src/main/res/values/strings.xml
+#firestore.rules
+
+# to remove committed file from current commits
+# run git reset <path>
+
+# git rm --cached lib/bldrs_keys.dart
+# git rm --cached lib/firebase_options.dart
+# git rm --cached ios/Runner/Info.plist
+# git rm --cached ios/Runner/GoogleService-Info.plist
+# git rm --cached android/app/src/main/res/values/strings.xml
+# git rm --cached firestore.rules
+
+# to removae a path from the entire repo history
+# git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch -r /Flutter' --prune-empty --tag-name-filter cat -- --all
