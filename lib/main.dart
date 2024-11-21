@@ -1,3 +1,4 @@
+import 'package:alkitab/b_screens/al_kitab_home.dart';
 import 'package:alkitab/c_protocols/a_bldrs_engine/bldrs_engine.dart';
 import 'package:alkitab/c_protocols/providers/alkitab_pro.dart';
 import 'package:basics/helpers/strings/text_check.dart';
@@ -197,18 +198,12 @@ class AlKitabRouting {
     switch (_path) {
       case ScreenName.logo:
         return Nav.transitFade(
-          screen: BldrsEngine.deadWeb ? const BannerScreen() : const LogoScreen(),
-          settings: settings,
-        );
-      case ScreenName.home:
-        return Nav.transitFade(
-          screen: const TheHomeScreen(),
+          screen: const AlKitabHome(),
           settings: settings,
         );
       default:
         return Nav.transitFade(
-          // screen: const NoPageFoundScreen(),
-          screen: const TheHomeScreen(),
+          screen: const AlKitabHome(),
           settings: settings,
         );
     // ------------------------------------------------------------
