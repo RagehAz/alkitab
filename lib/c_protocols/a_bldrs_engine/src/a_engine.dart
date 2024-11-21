@@ -35,6 +35,7 @@ class AlKitabEngine {
     else {
       // --------------------
       final WidgetsBinding _binding = WidgetsFlutterBinding.ensureInitialized();
+      await quran.Quran.initialize();
       await initializeApp(_binding);
       // --------------------
       runApp(const AppStarter());

@@ -25,6 +25,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:basics/ldb/ldb.dart';
 import 'package:basics/helpers/nums/numeric.dart';
 import 'package:basics/helpers/time/timers.dart';
+import 'package:quran_flutter/quran_flutter.dart' as quran;
 
 part 'src/a_engine.dart';
 part 'src/c_ui_initializer.dart';

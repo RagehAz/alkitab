@@ -1,12 +1,8 @@
 import 'package:alkitab/b_screens/al_kitab_home.dart';
-import 'package:alkitab/c_protocols/a_bldrs_engine/bldrs_engine.dart';
+import 'package:alkitab/c_protocols/a_bldrs_engine/alkitab_engine.dart';
 import 'package:alkitab/c_protocols/providers/alkitab_pro.dart';
 import 'package:basics/helpers/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs/b_screens/0_logo_screen/logo_screen.dart';
-import 'package:bldrs/b_screens/a_home_screen/the_home_screen.dart';
-import 'package:bldrs/b_screens/x_situational_screens/banner_screen.dart';
-import 'package:bldrs/c_protocols/a_bldrs_engine/bldrs_engine.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';

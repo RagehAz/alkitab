@@ -1,14 +1,17 @@
-import 'package:alkitab/b_screens/old_quran_screen/opld_qiran_screen.dart';
+import 'package:alkitab/b_screens/old_quran_screen/old_quran_screen.dart';
+import 'package:alkitab/c_protocols/quran_calculator.dart';
+import 'package:alkitab/g_components/sora_tile.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/checks/tracers.dart';
-import 'package:basics/layouts/views/floating_list.dart';
+import 'package:basics/helpers/wire/wire.dart';
+import 'package:bldrs/f_helpers/drafters/contextual.dart';
 import 'package:bldrs/h_navigation/routing/routing.dart';
-import 'package:bldrs/z_components/buttons/general_buttons/wide_button.dart';
 import 'package:bldrs/z_components/layouts/bldrs_screen/bldrs_screen.dart';
-import 'package:bldrs/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/z_components/layouts/page_fader.dart';
+import 'package:bldrs/z_components/lists/super_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:quran_flutter/quran_flutter.dart';
 
 class AlKitabHome extends StatefulWidget {
   // --------------------------------------------------------------------------
@@ -51,7 +54,9 @@ class _AlKitabHomeState extends State<AlKitabHome> {
       asyncInSync(() async {
 
         await _triggerLoading(setTo: true);
-        /// GO BABY GO
+
+        _wordsCountsMap = await QuranCalculator.calculateAndStoreSuraWordsCount();
+
         await _triggerLoading(setTo: false);
 
       });
@@ -76,29 +81,65 @@ class _AlKitabHomeState extends State<AlKitabHome> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  Map<String, dynamic> _wordsCountsMap = {};
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     return BldrsScreen(
-      canSwipeBack: false,
       canGoBack: false,
-      appBarType: AppBarType.non,
+      appBarRowWidgets: [
+
+        AppBarButton(
+          icon: Iconz.planet,
+          buttonColor: Colorz.black50,
+          onTap: () async {
+
+            await QuranCalculator.calculateAndStoreSuraWordsCount();
+
+          },
+        ),
+
+      ],
       loading: _loading,
-      child: FloatingList(
-        boxAlignment: Alignment.topCenter,
-        padding: Stratosphere.stratosphereSandwich,
-        boxColor: const Color.fromRGBO(220, 220, 220, 1),
-        columnChildren: <Widget>[
+      child: SingleWire(
+        wire: _loading,
+        builder: (bool loading) {
 
-          WideButton(
-            verse: Verse.plain('Go to old screen'),
-            color: Colorz.black125,
-            onTap: () async {
-              await BldrsNav.goToNewScreen(screen: const QuranScreen());
-            },
-          ),
+          if (loading){
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          else {
 
-        ],
+            return PageFader(
+              restartOnRebuild: false,
+              child: Container(
+                color: const Color.fromRGBO(220, 220, 220, 1),
+                child: SuperListView(
+                  width: context.screenWidth,
+                  height: context.screenHeight,
+                  itemCount: Quran.surahCount,
+                  itemBuilder: (int index){
+
+
+                    return SoraTile(
+                      index: index,
+                      wordsCountsMap: _wordsCountsMap,
+                      onTap: () async {
+                        // await BldrsNav.goToNewScreen(screen: const QuranScreen());
+                      },
+                    );
+
+                  },
+
+                ),
+              ),
+            );
+          }
+
+        }
       ),
     );
     // --------------------
